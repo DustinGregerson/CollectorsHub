@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
+using System.Reflection.PortableExecutable;
+using System.Security.Cryptography;
 
 namespace CollectorsHub.Models
 {
