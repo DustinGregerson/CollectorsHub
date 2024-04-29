@@ -31,10 +31,8 @@ builder.Services.AddIdentity<User, IdentityRole>(options => {
 }).AddEntityFrameworkStores<CollectorsHubContext>()
   .AddDefaultTokenProviders();
 
-CollectorsHubContext.CreateAdminUserAndTestUsers(builder.Services.BuildServiceProvider()).Wait();
 
 var app = builder.Build();
-
 app.UseDeveloperExceptionPage();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -50,9 +48,11 @@ app.UseEndpoints(endpoints =>
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
     endpoints.MapControllerRoute(
-    name:"filterUserName",
+    name: "filterUserName",
     pattern: "{controller=User}/{action=List}/filter/{filterUserName}/{filterCollectionTag}"
     );
 }
-) ;
+);
+//This method creates the fake users, admin, and injects seed data into the database.
+CollectorsHubContext.CreateAdminUserAndTestUsers(builder.Services.BuildServiceProvider()).Wait();
 app.Run();

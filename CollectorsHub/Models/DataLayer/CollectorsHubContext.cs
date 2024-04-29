@@ -44,10 +44,13 @@ namespace CollectorsHub.Models
 
         public static async Task CreateAdminUserAndTestUsers(IServiceProvider serviceProvider)
         {
+            CollectorsHubUnitOfWork data = new CollectorsHubUnitOfWork(serviceProvider.GetRequiredService<CollectorsHubContext>());
+
             UserManager<User> userManager =
                 serviceProvider.GetRequiredService<UserManager<User>>();
             RoleManager<IdentityRole> roleManager =
                 serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
             string username = "admin";
             string password = "Sesame";
             string roleAdmin = "Admin";
@@ -89,6 +92,27 @@ namespace CollectorsHub.Models
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(user, roleUser);
+                    User fakeUser = data.Users.Get(new QueryOptions<User> {
+                        Where = (fake => fake.UserName == username)
+                    }) ;
+                    Collection collection = new Collection()
+                    {
+                        Name= "Old Machines",
+                        Tag= "Machine",
+                        UserId=fakeUser.Id
+                    };
+                    data.Collections.Insert(collection);
+                    data.Save();
+                    collection = data.Collections.Get(1);
+                    Item item = new Item()
+                    {
+                        Name = "Typewriter",
+                        Description= "An old typewriter",
+                        image=ImageConverter.imageToByteArray("images/typeWriter.png"),
+                        CollectionId=collection.CollectionId
+                    };
+                    data.Items.Insert(item);
+                    data.Save();
                 }
                 else
                 {
@@ -111,6 +135,29 @@ namespace CollectorsHub.Models
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(user, roleUser);
+                    await userManager.AddToRoleAsync(user, roleUser);
+                    User fakeUser = data.Users.Get(new QueryOptions<User>
+                    {
+                        Where = (fake => fake.UserName == username)
+                    });
+                    Collection collection = new Collection()
+                    {
+                        Name = "Fossils",
+                        Tag = "Fossils",
+                        UserId = fakeUser.Id
+                    };
+                    data.Collections.Insert(collection);
+                    data.Save();
+                    collection = data.Collections.Get(2);
+                    Item item = new Item()
+                    {
+                        Name = "Amber",
+                        Description = "An old tree fossil",
+                        image = ImageConverter.imageToByteArray("images/amber.png"),
+                        CollectionId = collection.CollectionId
+                    };
+                    data.Items.Insert(item);
+                    data.Save();
                 }
             }
 
@@ -127,6 +174,29 @@ namespace CollectorsHub.Models
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(user, roleUser);
+                    await userManager.AddToRoleAsync(user, roleUser);
+                    User fakeUser = data.Users.Get(new QueryOptions<User>
+                    {
+                        Where = (fake => fake.UserName == username)
+                    });
+                    Collection collection = new Collection()
+                    {
+                        Name = "Ancient History",
+                        Tag = "Relic",
+                        UserId = fakeUser.Id
+                    };
+                    data.Collections.Insert(collection);
+                    data.Save();
+                    collection = data.Collections.Get(3);
+                    Item item = new Item()
+                    {
+                        Name = "Ancient Pot ",
+                        Description = "An clay pot from 100bc.",
+                        image = ImageConverter.imageToByteArray("images/oldPot.png"),
+                        CollectionId = collection.CollectionId
+                    };
+                    data.Items.Insert(item);
+                    data.Save();
                 }
             }
 

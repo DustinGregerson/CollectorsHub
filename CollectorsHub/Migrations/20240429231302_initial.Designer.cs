@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CollectorsHub.Migrations
 {
     [DbContext(typeof(CollectorsHubContext))]
-    [Migration("20240427081611_add-migration initial")]
-    partial class addmigrationinitial
+    [Migration("20240429231302_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,17 +37,17 @@ namespace CollectorsHub.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("tag")
+                    b.Property<string>("Tag")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("userId")
+                    b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("CollectionId");
 
-                    b.HasIndex("userId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("collections");
                 });
@@ -290,7 +290,7 @@ namespace CollectorsHub.Migrations
                 {
                     b.HasOne("CollectorsHub.Models.User", "User")
                         .WithMany("Collection")
-                        .HasForeignKey("userId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
