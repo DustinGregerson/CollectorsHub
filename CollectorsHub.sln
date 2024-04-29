@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectorsHub", "CollectorsHub\CollectorsHub.csproj", "{EC8C2E34-D93E-40CE-BAA2-C94913D1002E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EC8C2E34-D93E-40CE-BAA2-C94913D1002E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC8C2E34-D93E-40CE-BAA2-C94913D1002E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC8C2E34-D93E-40CE-BAA2-C94913D1002E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC8C2E34-D93E-40CE-BAA2-C94913D1002E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F8678397-9327-42D0-A065-CB7C2B83C1E5}
+	EndGlobalSection
+EndGlobal

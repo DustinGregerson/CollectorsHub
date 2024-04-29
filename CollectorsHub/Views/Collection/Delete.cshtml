@@ -1,0 +1,7 @@
+﻿@model CollectionViewModel
+<div>Confirm Deletion</div>
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Collection.CollectionId" value="@Model.Collection.CollectionId"></input>
+    <button type="submit">Yes</button>
+</form>
+<a asp-action="ListUserCollections">No......</a>

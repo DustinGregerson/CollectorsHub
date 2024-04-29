@@ -1,0 +1,9 @@
+﻿@model Collection
+
+@{
+    foreach(Item item in Model.Items)
+    {
+        <a asp-controller="Item" asp-action="Details" asp-route-id="@item.itemId">@item.Name</a>
+    }
+}
+

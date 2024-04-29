@@ -1,0 +1,22 @@
+﻿@model CollectionViewModel
+
+@if (Model.Edit)
+{
+    <form asp-action="AddEdit">
+        <label>Name</label>
+        <input asp-for="Collection.Name" type="text" value="@Model.Collection.Name">
+        <lable>Tag</lable>
+        <input asp-for="Collection.Tag" type="text" value="@Model.Collection.Tag">
+        <button type="submit">Submit</button>
+    </form>
+}
+else{
+    <form asp-action="AddEdit">
+        <label>Name</label>
+        <input asp-for="Collection.Name" type="text">
+        <lable>Tag</lable>
+        <input asp-for="Collection.Tag" type="text">
+        <button type="submit">Submit</button>
+    </form>
+}
+

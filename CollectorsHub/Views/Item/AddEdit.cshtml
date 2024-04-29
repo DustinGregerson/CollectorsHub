@@ -1,0 +1,15 @@
+﻿@model ItemViewModel
+
+@if (Model.Edit)
+{
+    <form asp-action="AddEdit" enctype="multipart/form-data">
+        <input asp-for="item.Name">
+        <input asp-for="item.Description">
+        <img src="@ImagePNGbase64">
+        <input asp-for="item.image" type="file" accept="image/*">
+    </form>
+}
+else
+{
+    
+}

@@ -1,0 +1,29 @@
+﻿@model UserViewModel
+
+<form asp-action="filter">
+    <input type="text" name="UserNameFilterString"></input>
+    <button type="Submit">Submit</button>
+
+    <select name="filterCollectionTag"
+            asp-items="@(new SelectList(
+            Model.CollectionTags))">
+        <option value="All">All</option>
+    </select>
+</form>
+@if (Model.users.Count > 0)
+{
+    @foreach (User user in Model.users)
+    {
+        <div>@user.UserName</div>
+        foreach (Collection collection in user.Collection)
+        {
+            <a asp-controller="Collection" asp-action="List" asp-route-id="@collection.CollectionId">@collection.Name</a>
+        }
+
+    }
+
+}
+else
+{
+    <div>There are no Collections that match you search</div>
+}

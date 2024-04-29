@@ -1,0 +1,18 @@
+﻿@model CollectionViewModel
+
+<a asp-action="AddEdit">Add a collection</a>
+@foreach(Collection collection in Model.UserCollections)
+{
+    <div>Name: @collection.Name Tag:@collection.Tag 
+    <a asp-action="AddEdit" asp-route-id="@collection.CollectionId">Edit</a>
+    <a asp-action="Delete" asp-route-id="@collection.CollectionId">Delete</a>
+    </div>
+    <a asp-controller="Item" asp-action="AddEdit">Add item to this collection.</a>
+    @foreach(Item item in collection.Items)
+    {
+        <div>@item.Name</div>
+        <div>@item.Description</div>
+        <a asp-controller="Item" asp-action="AddEdit">Edit this item.</a>
+        <img src="data:image/png;base64,@ImageConverter.byteArrayTo64BaseEncode(item.image)"></img>
+    }
+}

@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<a asp-controller="Account" asp-action="Login">LogIn</a>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> signInManager
+
+@if (signInManager.IsSignedIn(User))
+{
+
+    <form asp-controller="Account" asp-action="LogOut"><button type="submit">LogOut @User.Identity.Name</button></form>
+    <a asp-controller="Collection" asp-action="ListUserCollections">Your Collections</a>
+   
+}
+else{
+    <a asp-controller="Account" asp-action="Register">Register</a>
+}
+<a asp-controller="User" asp-action="List">User Collections</a>
