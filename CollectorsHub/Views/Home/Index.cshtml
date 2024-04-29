@@ -8,7 +8,7 @@
 
 @if (signInManager.IsSignedIn(User))
 {
-
+    //update
     <form asp-controller="Account" asp-action="LogOut"><button type="submit">LogOut @User.Identity.Name</button></form>
     <a asp-controller="Collection" asp-action="ListUserCollections">Your Collections</a>
    
