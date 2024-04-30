@@ -14,12 +14,20 @@ namespace CollectorsHub.Models
         private Regex regex;
         public List<User> users { get; set; }
 
-        public List<String> CollectionTags { get; set; }
+        public List<string> CollectionTags { get; set; }
 
         public List<User> GetUsers() {
             CollectionTags = new List<string>();
             if(CollectionTags.Count==0)
             {
+                for(int i=0;i<users.Count;i++)
+                {
+                    if (users[i].Collection.Count == 0)
+                    {
+                        users.Remove(users[i]);
+                        i--;
+                    }
+                }
                 foreach(User user in users)
                 {
                     foreach(Collection collection in user.Collection)

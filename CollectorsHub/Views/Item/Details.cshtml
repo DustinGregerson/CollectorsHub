@@ -1,5 +1,12 @@
 ﻿@model ItemViewModel
 
-<div>@Model.item.Name</div>
-<div>@Model.item.Description</div>
-<img src="data:image/png;base64,@Model.ImagePNGbase64"></img>
+<div id="ItemDetails">
+<h3>@Model.item.Name</h3>
+    <div>
+        <div>
+        <h5>Description:</h5>
+        <div>@Model.item.Description</div>
+        </div>
+        <img src="@Model.ImagePNGbase64">
+    </div>
+</div>

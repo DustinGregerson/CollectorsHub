@@ -15,7 +15,7 @@ namespace CollectorsHub.Controllers
             model.users = data.Users.List(new QueryOptions<User>
             {
                 Include = "Collection",
-                Where = (user => user.UserName != "Admin")
+                Where = (user => user.UserName != "Admin"),
             }).ToList();
 
             model.UserNameFilterString = filterUserName;

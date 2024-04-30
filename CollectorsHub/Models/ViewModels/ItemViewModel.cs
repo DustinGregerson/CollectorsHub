@@ -13,8 +13,9 @@ namespace CollectorsHub.Models
 
         public bool Edit { get; set; }
 
-        
+
         public Item item { get; set; }
 
+        public Collection? collection { get; set; }
     }
 }

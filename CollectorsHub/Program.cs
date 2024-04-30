@@ -43,7 +43,17 @@ app.UseSession();
 #pragma warning disable ASP0014
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapControllerRoute(
+endpoints.MapAreaControllerRoute(
+    name: "admin",
+    areaName: "Admin",
+    pattern: "Admin/{controller}/{action}"
+    );
+    endpoints.MapAreaControllerRoute(
+    name: "admin",
+    areaName: "Admin",
+    pattern: "Admin/{controller}/{action}/{id}"
+    );
+endpoints.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}"
     );
@@ -56,6 +66,10 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllerRoute(
     name: "filterUserName",
     pattern: "{controller=User}/{action=List}/filter/{filterUserName}/{filterCollectionTag}"
+    );
+    endpoints.MapControllerRoute(
+    name: "filterByItemName",
+    pattern: "{controller=Collection}/{action=List}/{id}/filter/{filter}"
     );
     endpoints.MapControllerRoute(
     name: "InvalidAddOrEdit",

@@ -1,19 +1,40 @@
 ﻿@model CollectionViewModel
-
-<a asp-action="AddEdit">Add a collection</a>
-@foreach(Collection collection in Model.UserCollections)
-{
-    <div>Name: @collection.Name Tag:@collection.Tag 
-    <a asp-action="AddEdit" asp-route-id="@collection.CollectionId">Edit</a>
-    <a asp-action="Delete" asp-route-id="@collection.CollectionId">Delete</a>
-    </div>
-    <a asp-controller="Item" asp-action="AddEdit" asp-route-ItemId="0" asp-route-CollectionId="@collection.CollectionId">Add item to this collection.</a>
-    @foreach(Item item in collection.Items)
+<div id="Collection_User_List">
+    <a class="btn btn-primary" asp-action="AddEdit">Add a collection</a>
+    @foreach(Collection collection in Model.UserCollections)
     {
-        <div>@item.Name</div>
-        <div>@item.Description</div>
-        <a asp-controller="Item" asp-action="AddEdit" asp-route-ItemId="@item.itemId" asp-route-CollectionId="@collection.CollectionId">Edit this item.</a>
-        <img src="@ImageConverter.byteArrayTo64BaseEncode(item.image)"></img>
+        <h3>Collection ID# @collection.CollectionId</h3>
+        <div class="Collection_Section">
+            <div class="Collection_Name_And_Tag">
+                    <div>
+                        <span>Name: </span> <span> @collection.Name</span>
+                    </div>
+                    <div>
+                        <span>Tag: </span> <span>@collection.Tag</span>
+                    </div>
+            </div>
+            <div class="Collection_Edit_Delete">
+                <a class="btn btn-dark" asp-action="AddEdit" asp-route-id="@collection.CollectionId">Edit This Collection</a>
+                <a class="btn btn-info" asp-controller="Item" asp-action="AddEdit" asp-route-ItemId="0" asp-route-CollectionId="@collection.CollectionId">Add An Item To This Collection.</a>
+                <a class="btn btn-light" asp-action="Delete" asp-route-id="@collection.CollectionId">Delete This Collection</a>
+            </div>
+        <div class="Item_Container">
+        @foreach(Item item in collection.Items)
+        {
+            <div class="Item_Section">
+            <div class="Item_Name">
+                <h5>@item.Name</h5>
+            </div>
+                <div class="Edit_And_View_Buttons">
+                    <a class="btn btn-dark" asp-controller="Item" asp-action="AddEdit" asp-route-ItemId="@item.itemId" asp-route-CollectionId="@collection.CollectionId">Edit</a>
+                    <a class="btn btn-info" asp-controller="Item" asp-action="Details" asp-route-ItemId="@item.itemId">View</a>
+                    <a class="btn btn-light" asp-controller="Item" asp-action="Delete" asp-route-ItemId="@item.itemId">Delete</a>
+                </div>
+                <img src="@ImageConverter.byteArrayTo64BaseEncode(item.image)"></img>
+            </div>
+        }
+        </div>
+        </div>
     }
-}
-<a asp-controller="Home" asp-action="index">Back</a>
+</div>
+

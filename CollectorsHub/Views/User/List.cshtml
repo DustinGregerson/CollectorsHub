@@ -1,26 +1,43 @@
 ﻿@model UserViewModel
 
 <form asp-action="filter">
-    <input type="text" name="UserNameFilterString"></input>
-    <button type="Submit">Submit</button>
-
-    <select name="filterCollectionTag"
-            asp-items="@(new SelectList(
-            Model.CollectionTags))">
-        <option value="All">All</option>
-    </select>
+    <div class="form-group">
+        <label for="UserNameFilterString">Filter User Name</label>
+        <input type="text" name="UserNameFilterString">
+    </div>
+    <div class="form-group">
+        <label for="filterCollectionTag">Filter By Tag</label>
+        <select class="dropdown" name="filterCollectionTag"
+                asp-items="@(new SelectList(
+                Model.CollectionTags))">
+            <option value="All">All</option>
+        </select>
+    </div>
+    
+    <button class="btn btn-primary" type="Submit">Submit</button>
 </form>
 @if (Model.users.Count > 0)
 {
+ 
     @foreach (User user in Model.users)
     {
-        <div>@user.UserName</div>
-        foreach (Collection collection in user.Collection)
+
+        <div>
+         <h3>@user.UserName</h3>
+         <ul class="list-group">
+        @foreach (Collection collection in user.Collection)
         {
+            
+            <li class="list-group-item">
             <a asp-controller="Collection" asp-action="List" asp-route-id="@collection.CollectionId">@collection.Name</a>
+            </li>
         }
+        </ul>
+        </div>
+
 
     }
+
 
 }
 else

@@ -11,15 +11,17 @@ namespace CollectorsHub.Controllers
         CollectorsHubUnitOfWork data;
         public CollectionController(CollectorsHubContext ctx) => data = new CollectorsHubUnitOfWork(ctx);
 
-        public IActionResult List(int id)
+        public IActionResult List(int id,string filter)
         {
-            Collection collection = data.Collections.Get(new QueryOptions<Collection>
+            CollectionViewModel model = new CollectionViewModel();
+            model.Collection = data.Collections.Get(new QueryOptions<Collection>
             {
                 Include = "Items",
                 Where = (col => col.CollectionId == id)
             });
-
-            return View(collection);
+            model.CollectionId = id;
+            model.setItems(filter);
+            return View(model);
         }
         public IActionResult ListUserCollections()
         {
@@ -87,7 +89,7 @@ namespace CollectorsHub.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("AddEdit");
+                    return View(model);
                 }
         }
         [HttpGet]
@@ -103,6 +105,15 @@ namespace CollectorsHub.Controllers
             data.Collections.Delete(data.Collections.Get(model.Collection.CollectionId));
             data.Collections.Save();
             return RedirectToAction("ListUserCollections");
+        }
+        public IActionResult filter(int id,string filter)
+        {
+            if (filter == null)
+            {
+                filter = "All";
+            }
+            string customRoute = "List/"+id+"/filter/" + filter;
+            return Redirect(customRoute);
         }
 
     }

@@ -1,0 +1,41 @@
+﻿@model List<User>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    UserName
+                </th>
+                <th>
+                    First Name
+                </th>
+                <th>
+                    Last Name
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach(User user in Model)
+        {
+            <tr>
+                <td>
+                    @user.UserName
+                </td>
+                <td>
+                    @user.firstName
+                </td>
+                <td>
+                    @user.lastName
+                </td>
+                <td>
+                    <a class="btn btn-danger" asp-action="DeleteUser" asp-route-id="@user.Id">Delete</a>
+                </td>
+                <td>
+                    <a class="btn btn-info" asp-controller="Collection" asp-action="ListUserCollections" asp-route-Id="@user.Id">Collections</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+    </table>
+

@@ -1,0 +1,9 @@
+﻿@model ItemViewModel
+<h2>Comfirm Deletion of @Model.item.Name</h2>
+<div class="d-inline-flex">
+<form asp-action="Delete">
+    <input asp-for="item.itemId" type="text" value="@Model.item.itemId" hidden>
+    <button class="btn btn-danger">Delete</button>
+</form>
+<a class="btn btn-primary" asp-controller="Collection" asp-action="ListUserCollections">Back</a>
+</div>

@@ -1,9 +1,24 @@
-﻿@model Collection
+﻿@model CollectionViewModel
 
 @{
-    foreach(Item item in Model.Items)
+    <form asp-action="filter">
+        <input name="id" type="text" value="@Model.CollectionId" hidden>
+        <div class="form-group">
+        <label for="filter">Filter By Item Name</label>
+        <input class="form-control" type="text" name="filter">
+        </div>
+        <button class="btn btn-primary" type="Submit">Submit</button>
+    </form>
+    <div>
+    <h3>@Model.Collection.Name</h3>
+    <ul class="list-group">
+    @foreach(Item item in Model.Items)
     {
-        <a asp-controller="Item" asp-action="Details" asp-route-id="@item.itemId">@item.Name</a>
+        <li class="list-group-item">
+            <a asp-controller="Item" asp-action="Details" asp-route-itemId="@item.itemId">@item.Name</a>
+        </li>
     }
+    </ul>
+    </div>
 }
 

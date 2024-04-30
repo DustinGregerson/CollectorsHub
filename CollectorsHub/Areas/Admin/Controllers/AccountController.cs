@@ -1,9 +1,13 @@
 ﻿using CollectorsHub.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
-namespace CollectorsHub.Controllers
+namespace CollectorsHub.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
+    [Area("Admin")]
     public class AccountController : Controller
     {
         private UserManager<User> userManager;
@@ -69,13 +73,10 @@ namespace CollectorsHub.Controllers
                     model.Username, model.Password, true,
                     lockoutOnFailure: false);
 
-
                 if (result.Succeeded)
                 {
-                    
-                    
-                        return RedirectToAction("Index", "Home");
-                    
+                    HttpContext.Session.SetString("userName", model.Username);
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {

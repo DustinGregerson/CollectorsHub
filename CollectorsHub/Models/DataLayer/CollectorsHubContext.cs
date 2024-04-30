@@ -103,7 +103,10 @@ namespace CollectorsHub.Models
                     };
                     data.Collections.Insert(collection);
                     data.Save();
-                    collection = data.Collections.Get(1);
+                    collection = data.Collections.Get(new QueryOptions<Collection>
+                    {
+                        Where = (col => col.Name == "Old Machines"&&col.Tag=="Machine")
+                    }) ;
                     Item item = new Item()
                     {
                         Name = "Typewriter",
@@ -148,7 +151,10 @@ namespace CollectorsHub.Models
                     };
                     data.Collections.Insert(collection);
                     data.Save();
-                    collection = data.Collections.Get(2);
+                    collection = data.Collections.Get(new QueryOptions<Collection>
+                    {
+                        Where = (col => col.Name == "Fossils" && col.Tag == "Fossils")
+                    });
                     Item item = new Item()
                     {
                         Name = "Amber",
@@ -187,7 +193,12 @@ namespace CollectorsHub.Models
                     };
                     data.Collections.Insert(collection);
                     data.Save();
-                    collection = data.Collections.Get(3);
+                    collection = data.Collections.Get(new QueryOptions<Collection>
+                    {
+                        Where = (col => col.Name == "Ancient History" && col.Tag == "Relic")
+                    });
+                   
+               
                     Item item = new Item()
                     {
                         Name = "Ancient Pot ",

@@ -10,6 +10,13 @@ namespace CollectorsHub.Controllers
         CollectorsHubUnitOfWork data;
         public ItemController(CollectorsHubContext ctx) => data = new CollectorsHubUnitOfWork(ctx);
 
+        public IActionResult List(int id)
+        {
+            ItemViewModel model=new ItemViewModel();
+            model.collection = data.Collections.Get(id);
+            return View(model);
+        }
+
         [HttpGet]
         public IActionResult AddEdit(int ItemId,int CollectionId)
         {
@@ -117,21 +124,27 @@ namespace CollectorsHub.Controllers
                 return View(model);
             }
         }
-        public IActionResult Details(int id)
+        public IActionResult Details(int itemId)
         {
             ItemViewModel model=new ItemViewModel();
-            model.item=data.Items.Get(id);
+            model.item=data.Items.Get(itemId);
             model.ImagePNGbase64=ImageConverter.byteArrayTo64BaseEncode(model.item.image);
             return View(model);
         }
         [HttpGet]
-        public IActionResult Delete(int id) {
-            return View();
+        public IActionResult Delete(int itemId)
+        {
+            ItemViewModel model = new ItemViewModel();
+            model.item = data.Items.Get(itemId);
+            return View(model);
         }
         [HttpPost]
-        public IActionResult Delete()
+        public IActionResult Delete(ItemViewModel model)
         {
-            return View();
+            Item item = data.Items.Get(model.item.itemId);
+            data.Items.Delete(item);
+            data.Save();
+            return Redirect("/Collection/ListUserCollections");
         }
     }
 }
