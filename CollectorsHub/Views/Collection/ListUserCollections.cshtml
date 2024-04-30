@@ -7,12 +7,13 @@
     <a asp-action="AddEdit" asp-route-id="@collection.CollectionId">Edit</a>
     <a asp-action="Delete" asp-route-id="@collection.CollectionId">Delete</a>
     </div>
-    <a asp-controller="Item" asp-action="AddEdit">Add item to this collection.</a>
+    <a asp-controller="Item" asp-action="AddEdit" asp-route-ItemId="0" asp-route-CollectionId="@collection.CollectionId">Add item to this collection.</a>
     @foreach(Item item in collection.Items)
     {
         <div>@item.Name</div>
         <div>@item.Description</div>
-        <a asp-controller="Item" asp-action="AddEdit">Edit this item.</a>
-        <img src="data:image/png;base64,@ImageConverter.byteArrayTo64BaseEncode(item.image)"></img>
+        <a asp-controller="Item" asp-action="AddEdit" asp-route-ItemId="@item.itemId" asp-route-CollectionId="@collection.CollectionId">Edit this item.</a>
+        <img src="@ImageConverter.byteArrayTo64BaseEncode(item.image)"></img>
     }
 }
+<a asp-controller="Home" asp-action="index">Back</a>

@@ -2,7 +2,8 @@
 {
     public class CollectionViewModel
     {
-        public List<Collection> UserCollections { get; set; }
+        
+        public List<Collection>? UserCollections { get; set; }
 
         public Collection Collection { get; set; }
 

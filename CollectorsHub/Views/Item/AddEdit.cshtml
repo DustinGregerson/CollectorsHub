@@ -1,14 +1,34 @@
 ﻿@model ItemViewModel
-
+<h1>@if (Model.Edit) {<span>Edit</span>}else{<span>Add</span>}</h1>
+<div asp-validation-summary="All"></div>
 @if (Model.Edit)
 {
     <form asp-action="AddEdit" enctype="multipart/form-data">
-        <input asp-for="item.Name">
-        <input asp-for="item.Description">
-        <input asp-for="item.image" type="file" accept="image/*">
+        <input asp-for="item.Name" value="@Model.item.Name">
+        <input asp-for="item.Description" value="@Model.item.Description">
+
+            <img src="@ImageConverter.byteArrayTo64BaseEncode(Model.item.image)">
+            <input asp-for="ImagePNGbase64" type="text" value="@ImageConverter.byteArrayTo64BaseEncode(Model.item.image)" hidden>
+            <input asp-for="imgFile" type="file" accept="image/*">
+        
+        <button type="Submit">Submit</button>
     </form>
 }
 else
 {
-    
+    <form asp-action="AddEdit" enctype="multipart/form-data">
+        <input asp-for="item.Name">
+        <input asp-for="item.Description">
+        @if (Model.item != null && Model.item.image !=null)
+        {
+            <img src="@ImageConverter.byteArrayTo64BaseEncode(Model.item.image)">
+            <input asp-for="ImagePNGbase64" type="text" value="@ImageConverter.byteArrayTo64BaseEncode(Model.item.image)" hidden>
+            <input asp-for="imgFile" type="file" accept="image/*">
+        }
+        else{
+            <input asp-for="imgFile" type="file" accept="image/*">
+        }
+        <button type="Submit">Submit</button>
+    </form>
 }
+<a asp-controller="Collection" asp-action="ListUserCollections">Back</a>

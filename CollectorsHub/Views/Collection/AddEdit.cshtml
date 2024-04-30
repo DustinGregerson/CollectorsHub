@@ -1,5 +1,4 @@
 ﻿@model CollectionViewModel
-
 @if (Model.Edit)
 {
     <form asp-action="AddEdit">
@@ -7,6 +6,7 @@
         <input asp-for="Collection.Name" type="text" value="@Model.Collection.Name">
         <lable>Tag</lable>
         <input asp-for="Collection.Tag" type="text" value="@Model.Collection.Tag">
+        <input asp-for="Collection.CollectionId" type="text" value="@Model.Collection.CollectionId" hidden></input>
         <button type="submit">Submit</button>
     </form>
 }

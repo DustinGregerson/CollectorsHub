@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CollectorsHub.Migrations
 {
     [DbContext(typeof(CollectorsHubContext))]
-    [Migration("20240429231302_initial")]
-    partial class initial
+    [Migration("20240430021425_intitial")]
+    partial class intitial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

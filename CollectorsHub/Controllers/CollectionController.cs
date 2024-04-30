@@ -46,42 +46,40 @@ namespace CollectorsHub.Controllers
         public IActionResult AddEdit(int id)
         {
             CollectionViewModel model = new CollectionViewModel();
+
             if (id > 0)
             {
-                User user = data.Users.Get(new QueryOptions<User>{
-                    Where = (u => u.UserName==User.Identity.Name)
-                });
-
-                model.Collection = data.Collections.Get(new QueryOptions<Collection>
-                {
-                    Where = (col => col.UserId == user.Id)
-                });
+                TempData["action"] = "Edit";
+                model.Collection = data.Collections.Get(id);
                 model.Edit = true;
+                return View(model);
             }
+
+            TempData["action"] = "Add";
             return View(model);
         }
         [HttpPost]
         public IActionResult AddEdit(CollectionViewModel model)
         {
-                if (model.Collection.Name != "" && model.Collection.Tag != "")
-                {
-                    if (model.Edit)
+            model.Collection.UserId = data.Users.Get(new QueryOptions<User>
+            {
+                Where = (user => user.UserName == User.Identity.Name)
+            }).Id;
+            model.Collection.User = data.Users.Get(model.Collection.UserId);
+
+            ModelState.Clear();
+
+            TryValidateModel(model);
+
+                if (ModelState.IsValid) {
+                    if (TempData["action"].ToString()=="Edit")
                     {
-                        model.Collection.UserId = data.Users.Get(new QueryOptions<User>
-                        {
-                            Where = (user => user.UserName == User.Identity.Name)
-                        }).Id;
                     data.Collections.Update(model.Collection);
                     data.Save();
-                    return RedirectToAction("ListUserCollections");
-                }
-                else
+                        return RedirectToAction("ListUserCollections");
+                    }
+                    else
                     {
-                        model.Collection.UserId = data.Users.Get(new QueryOptions<User>
-                        {
-                            Where = (user => user.UserName == User.Identity.Name)
-                        }).Id;
-
                         data.Collections.Insert(model.Collection);
                         data.Save();
                         return RedirectToAction("ListUserCollections");

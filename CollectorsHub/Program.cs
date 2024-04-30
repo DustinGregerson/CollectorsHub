@@ -45,11 +45,21 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}"
+    );
+
+    endpoints.MapControllerRoute(
+    name:"ControllerToAction",
+    pattern:"{controller}/{action}"
+    );
 
     endpoints.MapControllerRoute(
     name: "filterUserName",
     pattern: "{controller=User}/{action=List}/filter/{filterUserName}/{filterCollectionTag}"
+    );
+    endpoints.MapControllerRoute(
+    name: "InvalidAddOrEdit",
+    pattern: "{controller=Item}/{action=AddEdit}/{ItemId}/{CollectionId}"
     );
 }
 );

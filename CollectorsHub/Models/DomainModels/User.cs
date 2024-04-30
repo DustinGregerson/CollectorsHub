@@ -9,11 +9,11 @@ namespace CollectorsHub.Models
 
 
         [NotMapped]
-        public IList<string> RoleNames { get; set; }
+        public IList<string>? RoleNames { get; set; }
         public string? firstName { get; set; }
         public string? lastName { get; set; }
 
-        public List<Collection> Collection { get; set; }
+        public List<Collection>? Collection { get; set; }
         
 
     }
