@@ -1,5 +1,7 @@
 ﻿using CollectorsHub.Models;
+using CollectorsHub.Models.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime.InteropServices;
 
 namespace CollectorsHub.Controllers
 {
@@ -8,19 +10,57 @@ namespace CollectorsHub.Controllers
         CollectorsHubUnitOfWork data;
         public UserController(CollectorsHubContext ctx) => data = new CollectorsHubUnitOfWork(ctx);
 
-        public IActionResult List(string filterUserName,string filterCollectionTag)
+        public IActionResult List(string filterUserName, string filterCollectionTag)
         {
-
+            
             UserViewModel model = new UserViewModel();
-            model.users = data.Users.List(new QueryOptions<User>
+            //filter
+            if (filterCollectionTag != "All" && filterCollectionTag != null
+             && filterUserName != "All" && filterUserName != null)
             {
-                Include = "Collection",
-                Where = (user => user.UserName != "Admin"),
-            }).ToList();
+                model.users = data.Users.List(new QueryOptions<User>
+                {
+                    Include = "Collection",
+                    Where = (user => user.UserName != "Admin" && user.UserName.Contains(filterUserName))
+                }).Select(user =>
+                {
+                    user.Collection = user.Collection.Where(col => col.Tag == filterCollectionTag).ToList();
+                    return user;
 
-            model.UserNameFilterString = filterUserName;
-            model.CollectionTagFilterString = filterCollectionTag;
-            model.GetUsers();
+                }).ToList();
+            }
+            else if (filterCollectionTag == "All" && filterUserName != "All")
+            {
+                model.users = data.Users.List(new QueryOptions<User>
+                {
+                    Include = "Collection",
+                    Where = (user => user.UserName != "Admin" && user.UserName.Contains(filterUserName))
+                }).ToList();
+            }
+            else if (filterCollectionTag != "All" && filterUserName == "All")
+            {
+                model.users = data.Users.List(new QueryOptions<User>
+                {
+                    Include = "Collection",
+                    Where = (user => user.UserName != "Admin")
+                }).Select(user =>
+                {
+                    user.Collection = user.Collection.Where(col => col.Tag == filterCollectionTag).ToList();
+                    return user;
+
+                }).Where(user=>user.Collection.Count()>0).ToList();
+            }
+            else
+            {
+                model.users = data.Users.List(new QueryOptions<User>
+                {
+                    Include = "Collection",
+                    Where = (user => user.UserName != "Admin")
+                }).ToList();
+            }
+
+            List<Collection> collections = UserViewModelExtension.ExtractCollections<User, Collection>(model.users, user => user.Collection);
+            model.CollectionTags = UserViewModelExtension.GetDistinctTags<Collection>(collections, col =>col.Tag);
 
             return View(model);
         }

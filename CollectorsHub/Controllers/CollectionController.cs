@@ -14,13 +14,27 @@ namespace CollectorsHub.Controllers
         public IActionResult List(int id,string filter)
         {
             CollectionViewModel model = new CollectionViewModel();
-            model.Collection = data.Collections.Get(new QueryOptions<Collection>
+            if (filter != "All" && filter !=null)
             {
-                Include = "Items",
-                Where = (col => col.CollectionId == id)
-            });
-            model.CollectionId = id;
-            model.setItems(filter);
+                model.Collection = data.Collections.List(new QueryOptions<Collection>
+                {
+                    Include = "Items",
+                    Where = (col => col.CollectionId == id)
+                }).Select(col =>
+                {
+                    col.Items = col.Items.Where(itm => itm.Name.Contains(filter)).ToList();
+                    return col;
+                }).FirstOrDefault();
+            }
+            else
+            {
+                model.Collection = data.Collections.List(new QueryOptions<Collection>
+                {
+                    Include = "Items",
+                    Where = (col => col.CollectionId == id)
+                }).FirstOrDefault();
+            }
+
             return View(model);
         }
         public IActionResult ListUserCollections()
@@ -45,20 +59,21 @@ namespace CollectorsHub.Controllers
             return View(model);
         }
         [HttpGet]
-        public IActionResult AddEdit(int id)
+
+        public IActionResult Add()
         {
             CollectionViewModel model = new CollectionViewModel();
-
-            if (id > 0)
-            {
-                TempData["action"] = "Edit";
-                model.Collection = data.Collections.Get(id);
-                model.Edit = true;
-                return View(model);
-            }
-
             TempData["action"] = "Add";
-            return View(model);
+            return View("AddEdit",model);
+        }
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            CollectionViewModel model = new CollectionViewModel();
+            TempData["action"] = "Edit";
+            model.Collection = data.Collections.Get(id);
+            model.Edit = true;
+            return View("AddEdit",model);
         }
         [HttpPost]
         public IActionResult AddEdit(CollectionViewModel model)
@@ -68,13 +83,12 @@ namespace CollectorsHub.Controllers
                 Where = (user => user.UserName == User.Identity.Name)
             }).Id;
             model.Collection.User = data.Users.Get(model.Collection.UserId);
-
+            string action = TempData["action"].ToString();
             ModelState.Clear();
-
             TryValidateModel(model);
 
                 if (ModelState.IsValid) {
-                    if (TempData["action"].ToString()=="Edit")
+                    if (action=="Edit")
                     {
                     data.Collections.Update(model.Collection);
                     data.Save();
@@ -87,10 +101,16 @@ namespace CollectorsHub.Controllers
                         return RedirectToAction("ListUserCollections");
                     }
                 }
-                else
+            else
+            {
+                TempData["action"] = action;
+                if (action == "Edit")
                 {
-                    return View(model);
+                    
+                    model.Edit = true;
                 }
+                return View("AddEdit",model);
+            }
         }
         [HttpGet]
         public IActionResult Delete(int id)

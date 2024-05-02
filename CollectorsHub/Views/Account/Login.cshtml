@@ -1,4 +1,5 @@
 ﻿@model AccountViewModel
+<div asp-validation-summary="All"></div>
 <form asp-action="Login" method="post">
     <div class="form-group">
     <label for="Username">Username</label>
@@ -6,7 +7,7 @@
     </div>
     <div class="form-group">
     <label for="Password">Password</label>
-    <input class="form-control" asp-for=Password type="text" name="Password">
+    <input class="form-control" asp-for=Password type="password" name="Password">
     <button class="btn btn-primary" type="submit">Submit</button>
     </div>
 </form>

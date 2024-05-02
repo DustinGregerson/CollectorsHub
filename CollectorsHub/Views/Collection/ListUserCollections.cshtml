@@ -1,20 +1,20 @@
 ﻿@model CollectionViewModel
 <div id="Collection_User_List">
-    <a class="btn btn-primary" asp-action="AddEdit">Add a collection</a>
+    <a class="btn btn-primary" asp-action="Add">Add a collection</a>
     @foreach(Collection collection in Model.UserCollections)
     {
         <h3>Collection ID# @collection.CollectionId</h3>
         <div class="Collection_Section">
             <div class="Collection_Name_And_Tag">
                     <div>
-                        <span>Name: </span> <span> @collection.Name</span>
+                        <span>Collection Name: </span> <span> @collection.Name</span>
                     </div>
                     <div>
-                        <span>Tag: </span> <span>@collection.Tag</span>
+                        <span>Collection Tag: </span> <span>@collection.Tag</span>
                     </div>
             </div>
             <div class="Collection_Edit_Delete">
-                <a class="btn btn-dark" asp-action="AddEdit" asp-route-id="@collection.CollectionId">Edit This Collection</a>
+                <a class="btn btn-dark" asp-action="Edit" asp-route-id="@collection.CollectionId">Edit This Collection</a>
                 <a class="btn btn-info" asp-controller="Item" asp-action="AddEdit" asp-route-ItemId="0" asp-route-CollectionId="@collection.CollectionId">Add An Item To This Collection.</a>
                 <a class="btn btn-light" asp-action="Delete" asp-route-id="@collection.CollectionId">Delete This Collection</a>
             </div>

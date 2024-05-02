@@ -57,14 +57,18 @@ table {
 }
 #Collection_User_List .Collection_Section .Collection_Name_And_Tag {
     display: flex;
-    flex-direction: column;
-    border-bottom:3px solid black;
-}
-#Collection_User_List .Collection_Section .Collection_Name_And_Tag div{
-    display: flex;
     flex-direction: row;
-    font-size:1.3em;
+    border-bottom: 3px solid black;
+    font-size: 1.3em;
 }
+#Collection_User_List .Collection_Section .Collection_Name_And_Tag :first-child{
+    padding-right: 10px;
+}
+#Collection_User_List .Collection_Section .Collection_Name_And_Tag div {
+    display: flex;
+    flex-direction: column;
+}
+
 #Collection_User_List .Collection_Section .Collection_Edit_Delete {
     display: flex;
     flex-direction: row;
@@ -122,8 +126,25 @@ table {
         flex-direction: column;
         border: 2px solid black;
     }
+    #ItemDetails div div #Description {
+        font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        font-size:1.2em;
+    }
     #ItemDetails img {
         height: 100%;
         width: 100%;
         border: 2px solid black;
     }
+#Item_Add_Edit label{
+    margin-bottom:.5vh;
+}
+#Item_Add_Edit #Form_Image_Container {
+    height: 50vh;
+    width: 50vh;
+}
+#Item_Add_Edit #Form_Image_Container img{
+    height: 50vh;
+    width: 50vh;
+    object-fit:contain;
+}
+

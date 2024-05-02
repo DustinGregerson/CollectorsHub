@@ -21,7 +21,7 @@
  
     @foreach (User user in Model.users)
     {
-
+        if (user.Collection.Count == 0){continue;}
         <div>
          <h3>@user.UserName</h3>
          <ul class="list-group">
@@ -42,5 +42,5 @@
 }
 else
 {
-    <div>There are no Collections that match you search</div>
+    <div>There are no Collections that match your search. Hit submit again to display all collections</div>
 }

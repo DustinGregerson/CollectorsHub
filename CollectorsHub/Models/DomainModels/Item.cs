@@ -7,12 +7,12 @@ namespace CollectorsHub.Models
     {
         [Required(ErrorMessage = "Item id must be set.")]
         public int itemId { get; set; }
-        [Required(ErrorMessage = "The item must have a name")]
+        [Required(ErrorMessage = "The item must have a name.")]
         public string Name { get; set; }
-        [Required(ErrorMessage = "The item must have a description")]
+        [Required(ErrorMessage = "The item must have a description.")]
         public string Description { get; set; }
 
-        [Required(ErrorMessage = "You must show off your item")]
+        [Required(ErrorMessage = "The item must have a image.")]
         public byte[] image { get; set; }
 
         public int CollectionId;

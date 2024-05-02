@@ -69,6 +69,8 @@ namespace CollectorsHub.Models
                 User user = new User
                 {
                     UserName = username,
+                    FirstName="Admin",
+                    LastName="Admin",
                 };
 
                 var result = await userManager.CreateAsync(user, password);
@@ -86,6 +88,8 @@ namespace CollectorsHub.Models
                 User user = new User
                 {
                     UserName = username,
+                    FirstName="user",
+                    LastName="A"
                 };
 
                 var result = await userManager.CreateAsync(user, password);
@@ -132,6 +136,8 @@ namespace CollectorsHub.Models
                 User user = new User
                 {
                     UserName = username,
+                    FirstName = "user",
+                    LastName = "B"
                 };
 
                 var result = await userManager.CreateAsync(user, password);
@@ -174,6 +180,8 @@ namespace CollectorsHub.Models
                 User user = new User
                 {
                     UserName = username,
+                    FirstName = "user",
+                    LastName = "C"
                 };
 
                 var result = await userManager.CreateAsync(user, password);
@@ -202,7 +210,7 @@ namespace CollectorsHub.Models
                     Item item = new Item()
                     {
                         Name = "Ancient Pot ",
-                        Description = "An clay pot from 100bc.",
+                        Description = "A clay pot from 100bc.",
                         image = ImageConverter.imageToByteArray("images/oldPot.png"),
                         CollectionId = collection.CollectionId
                     };

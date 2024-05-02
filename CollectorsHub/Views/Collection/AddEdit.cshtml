@@ -1,4 +1,12 @@
 ﻿@model CollectionViewModel
+@if (Model.Edit)
+{
+    <h3>Edit</h3>
+}
+else
+{
+    <h3>Add</h3>        
+}
 <div asp-validation-summary="All"></div>
 @if (Model.Edit)
 {

@@ -2,7 +2,7 @@
 
 @{
     <form asp-action="filter">
-        <input name="id" type="text" value="@Model.CollectionId" hidden>
+        <input name="id" type="text" value="@Model.Collection.CollectionId" hidden>
         <div class="form-group">
         <label for="filter">Filter By Item Name</label>
         <input class="form-control" type="text" name="filter">
@@ -12,12 +12,18 @@
     <div>
     <h3>@Model.Collection.Name</h3>
     <ul class="list-group">
-    @foreach(Item item in Model.Items)
-    {
-        <li class="list-group-item">
-            <a asp-controller="Item" asp-action="Details" asp-route-itemId="@item.itemId">@item.Name</a>
-        </li>
-    }
+            @if (Model.Collection.Items.Count == 0)
+            {
+                <li>
+                    Nothing matches your filter hit submit again to see all items.
+                </li>
+            }
+            @foreach(Item item in Model.Collection.Items)
+            {
+                <li class="list-group-item">
+                    <a asp-controller="Item" asp-action="Details" asp-route-itemId="@item.itemId">@item.Name</a>
+                </li>
+            }
     </ul>
     </div>
 }

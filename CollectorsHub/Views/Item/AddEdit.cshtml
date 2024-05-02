@@ -1,34 +1,59 @@
 ﻿@model ItemViewModel
 <h1>@if (Model.Edit) {<span>Edit</span>}else{<span>Add</span>}</h1>
+<div id="Item_Add_Edit">
 <div asp-validation-summary="All"></div>
 @if (Model.Edit)
 {
     <form asp-action="AddEdit" enctype="multipart/form-data">
-        <input asp-for="item.Name" value="@Model.item.Name">
-        <input asp-for="item.Description" value="@Model.item.Description">
-
+        <div class="form-group">
+        <label for="ItemName">Name: </label>
+        <input class="form-control" asp-for="item.Name" value="@Model.item.Name">
+        </div>
+        <div class="form-group">
+        <label for="ItemDescription">Description: </label>
+        <input class="form-control" asp-for="item.Description" value="@Model.item.Description">
+        </div>
+        <div id="Form_Image_Container">
             <img src="@ImageConverter.byteArrayTo64BaseEncode(Model.item.image)">
+            <label>Upload Image:</label>
             <input asp-for="ImagePNGbase64" type="text" value="@ImageConverter.byteArrayTo64BaseEncode(Model.item.image)" hidden>
-            <input asp-for="imgFile" type="file" accept="image/*">
-        
-        <button type="Submit">Submit</button>
+        </div>
+        <input asp-for="imgFile" type="file" accept="image/*">
+        <div id="Button_Pane">
+            <button class="btn btn-primary" type="Submit">Submit</button>
+            <a class="btn btn-primary" asp-controller="Collection" asp-action="ListUserCollections">Back</a>
+        </div>
     </form>
 }
 else
 {
     <form asp-action="AddEdit" enctype="multipart/form-data">
-        <input asp-for="item.Name">
-        <input asp-for="item.Description">
+        <div class="form-group">
+            <label for="ItemName">Name: </label>
+            <input class="form-control" asp-for="item.Name">
+        </div>
+        <div class="form-group">
+            <label for="ItemDescription">Description: </label>
+            <input class="form-control" asp-for="item.Description">
+        </div>
+
         @if (Model.item != null && Model.item.image !=null)
         {
+        <div id="Form_Image_Container">
             <img src="@ImageConverter.byteArrayTo64BaseEncode(Model.item.image)">
             <input asp-for="ImagePNGbase64" type="text" value="@ImageConverter.byteArrayTo64BaseEncode(Model.item.image)" hidden>
-            <input asp-for="imgFile" type="file" accept="image/*">
+        </div>
+                <label>Upload Image:</label>
+                <input asp-for="imgFile" type="file" accept="image/*">
         }
         else{
+                <label>Upload Image:</label>
             <input asp-for="imgFile" type="file" accept="image/*">
         }
-        <button type="Submit">Submit</button>
+        <div id="Button_Pane">
+            <button class="btn btn-primary" type="Submit">Submit</button>
+            <a class="btn btn-primary" asp-controller="Collection" asp-action="ListUserCollections">Back</a>
+        </div>
     </form>
 }
-<a class="btn btn-primary" asp-controller="Collection" asp-action="ListUserCollections">Back</a>
+</div>

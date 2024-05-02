@@ -35,9 +35,9 @@ namespace CollectorsHub.Areas.Admin.Controllers
                 {
                     UserName = model.UserName
                     ,
-                    firstName = model.FirstName
+                    FirstName = model.FirstName
                     ,
-                    lastName = model.LastName
+                    LastName = model.LastName
                 };
 
                 var result = await userManager.CreateAsync(user, model.Password);
